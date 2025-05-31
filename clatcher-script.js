@@ -1,0 +1,14 @@
+class Layer{constructor(a,b,c){this.title=a,this.icon=b,this.width=c}setBody(a){this.body=a}getButton(b){var a=document.createElement("button");return a.classList.add("stylish"),a.innerText=b,a}showInfo(b){var a=document.getElementById("info");a.classList.contains("show")||(a.style.visibility="visible",a.innerText=b,a.classList.add("show"),setTimeout(()=>{a.style.visibility="hidden",a.classList.remove("show"),a.innerText=""},3e3))}dragElement(a){var b=0,c=0,d=0,e=0;function f(f){(f=f||window.event).preventDefault(),b=d-f.clientX,c=e-f.clientY,d=f.clientX,e=f.clientY;var g=a.offsetTop-c;g>0&&(a.style.top=g+"px");var h=a.offsetLeft-b;h> -1&&(a.style.left=h+"px")}function g(){a.style.opacity="1.0",a.style.zIndex="0",document.onmouseup=null,document.onmousemove=null}a.firstChild.onmousedown=function(b){(b=b||window.event).preventDefault(),d=b.clientX,e=b.clientY,a.style.opacity="0.5",a.style.zIndex="100",document.onmouseup=g,document.onmousemove=f}}build(){let d=document.createElement("input");d.type="checkbox",d.classList.add("btnCtrl");let a=document.createElement("div");a.id=this.title.replace(/\s/g,"-"),a.style.cssText=`
+            position: absolute;
+            top: 0px;
+            left: 300px;
+            width: ${this.width}px;
+            height: auto !important;
+            word-wrap: break-word;
+            border-radius: 0.25rem;
+            z-index: 9;
+                
+            transform: rotateX(90deg);
+            transform-origin: 0 0;
+            transition: transform 250ms ease-in-out;
+        `,a.classList.add("clatcher-darktheme"),a.setAttribute("resize","");let b=document.createElement("div");b.id=this.title.replace(/\s/g,"-")+"-header";let e=document.createElement("div");e.id=this.title.replace(/\s/g,"-")+"-icon",e.innerHTML='<i class="'+this.icon+'"></i>';let f=document.createElement("div");f.id=this.title.replace(/\s/g,"-")+"-title",f.innerText=this.title;let c=document.createElement("label");c.classList.add("min-button"),c.innerHTML='<i class="fas fa-window-minimize"></i>',c.addEventListener("click",()=>{d.checked=!d.checked,d.checked?a.style.transform="rotateX(0deg)":a.style.transform="rotateX(90deg)"}),b.append(e),b.append(f),b.append(c);let g=document.createElement("div");g.id=this.title.replace(/\s/g,"-")+"-body",g.append(this.body),a.append(b),a.append(g),this.dragElement(a),document.querySelector(".page-container").append(d),document.querySelector(".page-container").append(a);let h=document.createElement("label");h.innerHTML='<i class="'+this.icon+' mr-5"></i> '+this.title,h.addEventListener("click",()=>{d.checked=!d.checked,d.checked?a.style.transform="rotateX(0deg)":a.style.transform="rotateX(90deg)"}),document.querySelector(".dropdown-content").append(h)}}
